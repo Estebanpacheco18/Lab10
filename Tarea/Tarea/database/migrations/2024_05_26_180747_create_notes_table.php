@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('course_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('course_id')->unsigned();
             $table->text('note');
+            $table->string('title'); 
             $table->timestamps();
     
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -28,6 +29,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('notes', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['course_id']);
+        });
+    
         Schema::dropIfExists('notes');
     }
 };

@@ -5,8 +5,8 @@
         <h1>Lista de Notas</h1>
         <ul>
         
-@foreach($notes as $note)
-    <li>{{ $note->title }}</li>
+@foreach($users as $user)
+    <li>{{ $user->name }}</li>
 @endforeach
     </div>
 @endsection

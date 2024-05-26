@@ -10,45 +10,22 @@ class NoteController extends Controller
     public function index()
     {
         $notes = Note::all();
-        return view('notes.index', compact('notes'));
+        return view('notes.index', ['notes' => $notes]);
     }
-
     public function create()
     {
         return view('notes.create');
     }
-
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'course_id' => 'required',
-            'note' => 'required',
-        ]);
+        $note = new Note();
+        $note->user_id = $request->user_id;
+        $note->course_id = $request->course_id;
+        $note->note = $request->note;
+        $note->title = $request->title; 
+        $note->save();
     
-        Note::create($request->all());
-    
-        return redirect()->route('notes.index');
-    }
-    public function show(Note $note)
-    {
-        return view('notes.show', compact('note'));
-    }
-
-    public function edit(Note $note)
-    {
-        return view('notes.edit', compact('note'));
-    }
-
-    public function update(Request $request, Note $note)
-    {
-        $note->update($request->all());
-        return redirect()->route('notes.index');
-    }
-
-    public function destroy(Note $note)
-    {
-        $note->delete();
         return redirect()->route('notes.index');
     }
 }
+

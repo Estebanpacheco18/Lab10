@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Página web</title>
 </head>
 <body>
     <div class="container">
+        @include('buttons')
         @yield('content')
     </div>
 </body>
